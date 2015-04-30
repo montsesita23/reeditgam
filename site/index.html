@@ -9,31 +9,71 @@
    .glyphicon-thumbs-up {cursor: pointer;}
 	</style>
 </head>
+<!--https://github.com/Montsesita23/reeditgam.git -->
 <body ng-app="reeditgam" 
 	ng-controller="mainCtrl">
-	<!-- CREANDO EL FORMULARIO-->
-	<form ng-submit="addPost()">
-	<!-- input del titulo-->
-	<input type="text" ng-model="title">
-	<br>
+	<div class="row">
+	    <div class="col-md-6 col-md-offset-3">
+           <div class="page-header">
+		<h1>Reeditgam!!!</h1>			
+		   </div>
+		   <!-- CREANDO EL FORMULARIO-->
+	<form ng-submit="addPost()"
+	style="margin-top:30px;">
+	<h3>Agregar un nuevo Post</h3>
+	<div class="form-group">
+    <!-- input del titulo-->
+	<input
+	      class="form-control"
+	      placeholder="Title"
+	      type="text" 
+	      ng-model="title">
+	  </div>	
+	  <div class="form-group">
+	  	<input 
+	  	      class="form-control"
+	  	      placeholder="Link" 
+	  	      type="text" 
+	  	      ng-model="link">
+	  </div>
 	<!-- input del link-->
-	<input type="text" ng-model="link">
-	<br>
-	<button type="submit">Post</button>
+	<button
+	       class="btn btn-primary"
+	       type="submit">Post</button>
 	</form>
+	<!--Se renderean post-->
 	<div ng-repeat="post in posts | orderBy: '- upvotes'">
-	<span ng-click="incrementUpvotes(post)">*</span>
-	<!-- agregando los links-->
+	<span class="glyphicon glyphicon-thumbs-up"
+	   ng-click="incrementUpvotes(post)"></span>
+	   {{post.upvotes}}
+	   <span
+	      style="font-size:20px; margin-left:10px">
+	  	<!-- agregando los links-->
 	<a ng-show="post.link" href="{{post.link}}">
 		{{post.title}} 		
 		</a>
-    <span ng-hide="post.link">
+		<span ng-hide="post.link">
 		{{post.title}}
 		</span>
-		- Likes: {{post.upvotes}}
+		 </span>    
 	</div>
-	<!-- CArgando librerias -->
+	    </div>
+	</div>	
+	<!-- Cargando librerias -->
 	<!-- es una buena practica al final cargar los scripts -->
+	<!--Cargando Jquery-->
+	<script
+	      src="./vendor/jquery/jquery.js">
+	      </script>
+	      <!--cargando script bootstrap-->
+	      <script 
+           src="./vendor/bootstrap/js/bootstrap.js">
+	      </script>
+	      <!--cargando app.js-->
+	      <script 
+	         type="text/javascript"
+	         src="./scripts/app.js" >
+	      </script>
 	<!-- cargando angular-->
 	<script 
 	type="text/javascript"
