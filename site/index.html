@@ -10,7 +10,7 @@
 	</style>
 
 <link rel="stylesheet"
-	href="./vendor/ngsweetalert/css/sweet-alert-css">
+	href="./vendor/ngsweetalert/css/sweet-alert.css">
 </head>
 <body ng-app="reeditgam" 
 	ng-controller="mainCtrl">
@@ -65,8 +65,38 @@
 						{{post.title}}
 					</span>
 				</span>
+				<span>
+		<a href="#/posts/{{$index}}">
+		Comentarios.
+		</span>
 			</div>
 	</script>
+
+	
+	<!-- creando la palntilla /post.html-->
+	<script 
+	      type="text/ng-template"
+	      id="/posts.html">
+	     
+ <div class="page-header">
+		<h3>
+			<a ng-show="post.link"
+			 href="{{post.link}}"></a>
+			 <span
+			 	ng-hide="post.link">
+			 	{{post.title}}
+			 </span>
+		</h3>			
+	</div>
+	<div		
+		ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+		<span class="glyphicon glyphicon-thumbs-up"></span>
+		{{comment.upvotes}} - por {{comment.author}}
+		<span style="font-size:20px; margin-left:10px;">
+			{{comment.body}}
+		</span>
+			</div>
+	      </script>
 	
 		<!-- Cargando Librerias -->
 	<!-- Es buena practica al final -->
@@ -81,7 +111,8 @@
 		</script>
 		<!--Cargando sweet alert-->
 		<script 
-		src="./vendor/ngsweetalert/js/sweet-alert.min.js"></script>
+		src="./vendor/ngsweetalert/js/sweet-alert.min.js">
+		</script>
 	<!-- Cargando a Angular -->
 	<script 
 		type="text/javascript"
@@ -93,7 +124,8 @@
 		src="./vendor/angular-ui-router/angular-ui-router.js">
 		</script>
 		<!--se carga ngSweetAlert-->
-		<scriptsrc="./vendor/ngsweetalert/js/ngSweetAlert.js"></script>
+		<script
+		src="./vendor/ngsweetalert/js/ngSweetAlert.js"></script>
 	<!-- Cargando app.js -->
 	<script
 		type="text/javascript"

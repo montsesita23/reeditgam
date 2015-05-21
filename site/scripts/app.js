@@ -3,7 +3,7 @@ console.log ("#Montse: Cargo app.js");
 //como parametro del arreglo de objetos
 //del modulo
 var modulo1=
-	angular.module("reeditgam",['ui.router']);
+	angular.module("reeditgam",['ui.router', 'hSweetAlert']);
 //configurando las rutas
 //recibe un arreglo de elementos
 modulo1.config(
@@ -20,10 +20,10 @@ controller: "mainCtrl"
 });
 //Creando Ruta de visualizacion
 //de Post
-$stateProvider.state('post',{
-url: "/posts/{id}",
-templateUrl: "/posts.html",
-controller: "postsCtrl"
+$stateProvider.state('posts',{
+     url: "/posts/{id}",
+     templateUrl: "/posts.html",
+     controller: "postsCtrl"
 });
 //Url por defecto
 $urlRouterProvider.otherwise('home');
@@ -32,14 +32,14 @@ $urlRouterProvider.otherwise('home');
 modulo1.factory('posts',[function(){
 //cuerpo del factory llamado post
 var o = {
-post : [
+posts : [
        {
-title: "post 1", upvotes: 15,
-comments: [
-{author: "Karina", body:"Esto esta de pelos.",
-upvotes:3},
-{author: "Gamaliel", body:"Esto es basura.",
-upvotes:0}]
+		title: "post 1", upvotes: 15,
+		comments: [
+		{author: "Karina", body:"Esto esta de pelos.",
+		upvotes:3},
+		{author: "Gamaliel", body:"Esto es basura.",
+		upvotes:0}]
 },
 {
 title:"post 2", upvotes: 4,
@@ -58,27 +58,38 @@ return o;
 // dependency injection
 // Creando controlador mainCtrl
 modulo1.controller("mainCtrl",[
-	'$scope','posts', 'sweet', //inyectando factory post
+	'$scope','posts','sweet', // Inyectando factory post
 	function($scope, posts, sweet){
 		$scope.test = "Hola Angular";
-//modelo al cual se le asigna
-//el resultado del factory
-$scope.posts = posts.posts;
+		
+		// Modelo al cual se le asigna
+		// el resultado del factory
+		$scope.posts = posts.posts;
 
-//metodo del controlador
-$scope.addPosts = function(){
-if(!$scope.title || $scope.title === "")
-{
-//alert("No se3 permite postear titulos vacios");
-		 		sweet.show("No se permite postear titulos vacios");
+		 // Metodo del controlador
+		 $scope.addPost = function(){
+		 	if(!$scope.title || $scope.title === "")
+		 	{
+		 		//alert("No se permite postear titulos vacios");
+				 sweet.show('No se permite postear titulos vacios');
 		 		return;
-}
-$scope.posts.push(
-{
-title: $scope.title,
-link: $scope.link,
-upvotes: 0
-});
+		 	}
+		 	$scope.posts.push(
+		 		{
+		 			title: $scope.title,
+		 			link: $scope.link,
+		 		 	upvotes: 0,
+		 		 	comments : [{
+		 		 		author : "Gustavo",
+		 		 		body: "Me gusto ese link.",
+		 		 		upvotes: 0},
+		 		 		{
+		 		 			author : "Keila",
+		 		 			body: "Awesome link.",
+		 		 			upvotes: 2
+
+		 		 		}]
+		 		 });
 //Two-way data binding
 $scope.title = "";
 $scope.link = "";
@@ -91,13 +102,19 @@ $scope.link = "";
 	}]);
 
 // Creando controlador postsCtrl
-modulo1.controller("postCtrl",[
+modulo1.controller("postsCtrl",[
 	'$scope',
 	'$stateParams',
-	'posts'],function($scope, $stateParams, posts){
+	'posts'
+	,function($scope, $stateParams, posts){
+		$scope.incrementUpvotes = function(comment){
+			comment.upvotes +=1;
+		};
 		// Cuerpo del controlador
-		
-	});
+		//obteniendo el parametro id de los parametros el estado de la ruta
+		//y pasandolo como argumento al objeto del factory
+		$scope.post = posts.posts[$stateParams.id];
+	}]);
 
 
 
