@@ -58,8 +58,8 @@ return o;
 // dependency injection
 // Creando controlador mainCtrl
 modulo1.controller("mainCtrl",[
-	'$scope','posts', //inyectando factory post
-	function($scope, posts){
+	'$scope','posts', 'sweet', //inyectando factory post
+	function($scope, posts, sweet){
 		$scope.test = "Hola Angular";
 //modelo al cual se le asigna
 //el resultado del factory
@@ -69,8 +69,9 @@ $scope.posts = posts.posts;
 $scope.addPosts = function(){
 if(!$scope.title || $scope.title === "")
 {
-alert("No se permite postear titulos vacios")
-return;
+//alert("No se3 permite postear titulos vacios");
+		 		sweet.show("No se permite postear titulos vacios");
+		 		return;
 }
 $scope.posts.push(
 {
