@@ -1,3 +1,4 @@
+<!-- https://github.com/rivalcoba/reeditgam.git -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,9 +9,7 @@
 	<style>
 		.glyphicon-thumbs-up {cursor: pointer;}
 	</style>
-
-<link rel="stylesheet"
-	href="./vendor/ngsweetalert/css/sweet-alert.css">
+	<link rel="stylesheet" href="./vendor/ngsweetalert/css/sweet-alert.css">
 </head>
 <body ng-app="reeditgam" 
 	ng-controller="mainCtrl">
@@ -18,8 +17,7 @@
 		<div class="col-md-6 col-md-offset-3">
 			<ui-view></ui-view>
 		</div>
-	</div>	
-
+	</div>
 	
 	<!-- Creando plantillas -->
 	<!-- Plantilla /home.html -->
@@ -53,7 +51,6 @@
 					class="btn btn-primary"
 					type="submit">Post</button>
 			</form>
-
 			<!-- Se renderean posts -->
 			<div ng-repeat="post in posts | orderBy: '-upvotes'">
 				<span class="glyphicon glyphicon-thumbs-up" 
@@ -69,54 +66,55 @@
 					</span>
 				</span>
 				<span>
-		<a href="#/posts/{{post.id}}">
-		Comentarios.
-		</span>
+					<a href="#/posts/{{post.id}}">
+					Comentarios.
+				</span>
 			</div>
-	</script>	
-	<!-- creando la palntilla /post.html-->
-	<script 
-	      type="text/ng-template"
-	      id="/posts.html">	     
- <div class="page-header">
-		<h3>
-			<a ng-show="post.link"
-			 href="{{post.link}}"></a>
-			 <span
-			 	ng-hide="post.link">
-			 	{{post.title}}
-			 </span>
-		</h3>			
-	</div>
-
-<!-- formulario para Agregar-->
-<!--comentarios a cada post-->
-	<form ng-submit="addComment()" 
-	        style="margin-top:30px">
-	<h3>Agregar un nuevo comentario</h3>
-	   <div class="form-group">
-	      <input type="text" class="form-control"
-	       placeholder="Comentario"
-	       ng-model="body">
-	</div>
-
-	<button type="submit"
-	class="btn btn-primary">Publicar Comentario
-	</button>
-	</form>
-
-	<div	
-		ng-repeat="comment in post.comments | orderBy:'-upvotes'">
-		<span class="glyphicon glyphicon-thumbs-up"
-		ng-click="incrementUpvotes(comment)"></span>
-		{{comment.upvotes}} - por {{comment.author}}
-		<span style="font-size:20px; margin-left:10px;">
-			{{comment.body}}
-		</span>
-			</div>
-	      </script>
+	</script>
 	
-		<!-- Cargando Librerias -->
+	<!-- Creando la plantilla /posts.html -->
+	<!-- Muestra post de manera individual por su ID -->
+	<script
+		type="text/ng-template"
+		id="/posts.html">
+		<div class="page-header">
+			<h3>
+				<a ng-show="post.link" 
+				href="{{post.link}}"></a>
+				<span 
+					ng-hide="post.link">
+					{{post.title}}
+				</span>
+			</h3>
+		</div>
+		
+		<!-- Formulario para agregar -->
+		<!-- Comentarios a cada post -->
+		<form ng-submit="addComment()" 
+		style="margin-top:30px">
+			<h3>Agregar un nuevo comentario</h3>
+			<div class="form-group">
+				<input type="text" class="form-control"
+				placeholder="Comentario"
+				ng-model="body">
+			</div>
+			<button type="submit"
+			class="btn btn-primary">Publicar Comentario</button>
+		</form>
+		
+		<!-- Rendera comentarios-->
+		<div
+			ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+			<span class="glyphicon glyphicon-thumbs-up" 
+			ng-click="incrementUpvotes(comment)"></span>
+			{{comment.upvotes}} - por {{comment.author}}
+			<span style="font-size:20px; margin-left:10px;">
+				{{comment.body}}
+			</span>
+		</div>
+	</script>
+	
+	<!-- Cargando Librerias -->
 	<!-- Es buena practica al final -->
 	<!-- cargar los scrips -->
 	<!-- Cargando Jquery -->
@@ -127,10 +125,9 @@
 	<script
 		src="./vendor/bootstrap/js/bootstrap.js">
 		</script>
-		<!--Cargando sweet alert-->
-		<script 
-		src="./vendor/ngsweetalert/js/sweet-alert.min.js">
-		</script>
+	<!-- Cargando sweet alert -->
+	<script 
+		src="./vendor/ngsweetalert/js/sweet-alert.min.js"></script>
 	<!-- Cargando a Angular -->
 	<script 
 		type="text/javascript"
@@ -141,8 +138,8 @@
 		type="text/javascript"
 		src="./vendor/angular-ui-router/angular-ui-router.js">
 		</script>
-		<!--se carga ngSweetAlert-->
-		<script
+	<!-- Se carga ngSweetAlert -->
+	<script 
 		src="./vendor/ngsweetalert/js/ngSweetAlert.js"></script>
 	<!-- Cargando app.js -->
 	<script
